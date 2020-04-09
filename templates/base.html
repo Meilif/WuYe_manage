@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}TITLE{% endblock %}</title>
+    <!-- plugins:css -->
+    <link rel="shortcut icon" href="#" />
+    <link href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/iconfonts/ionicons/css/ionicons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/iconfonts/typicons/src/font/typicons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/css/vendor.bundle.addons.css' %}" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link href="{% static 'assets/css/shared/style.css' %}" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link href="{% static 'assets/css/demo_1/style.css' %}" rel="stylesheet" type="text/css">
+    <!-- End Layout styles -->
+    <link href="{% static 'assets/images/favicon.png' %}" rel="shortcut icon" type="text/css">
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <!-- 版头部分 -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <!-- logo -->
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+          <a class="navbar-brand brand-logo" href="{% url 'mainApp:index' %}">
+            <img src="{% static '/assets/images/logo_11.svg' %}" alt="logo" /> </a>
+          <a class="navbar-brand brand-logo-mini" href="{% url 'mainApp:index' %}">
+            <img src="{% static '/assets/images/logo-mini_11.svg' %}" alt="logo" /> </a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown">
+                <i class="mdi mdi-email-outline"></i>
+                <span class="count bg-success">3</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
+                <a class="dropdown-item py-3 border-bottom">
+                  <p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
+                  <span class="badge badge-pill badge-primary float-right">View all</span>
+                </a>
+                <a class="dropdown-item preview-item py-3">
+                  <div class="preview-thumbnail">
+                    <i class="mdi mdi-alert m-auto text-primary"></i>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
+                    <p class="font-weight-light small-text mb-0"> Just now </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item py-3">
+                  <div class="preview-thumbnail">
+                    <i class="mdi mdi-settings m-auto text-primary"></i>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
+                    <p class="font-weight-light small-text mb-0"> Private message </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item py-3">
+                  <div class="preview-thumbnail">
+                    <i class="mdi mdi-airballoon m-auto text-primary"></i>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal text-dark mb-1">New user registration</h6>
+                    <p class="font-weight-light small-text mb-0"> 2 days ago </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                {% if request.session.user_gender == 0 %}
+                    <img class="img-xs rounded-circle" src="{% static 'assets/images/faces-clipart/pic-1.png' %}" alt="Profile image">
+                {% else %}
+                    <img class="img-xs rounded-circle" src="{% static 'assets/images/faces-clipart/pic-2.png' %}" alt="Profile image">
+                {% endif %}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" style="text-align:center" aria-labelledby="UserDropdown">
+                <div class="dropdown-header text-center">
+                  {% if request.session.user_gender == 0 %}
+                      <img class="img-xs rounded-circle" src="{% static 'assets/images/faces-clipart/pic-1.png' %}" alt="Profile image">
+                  {% else %}
+                      <img class="img-xs rounded-circle" src="{% static 'assets/images/faces-clipart/pic-2.png' %}" alt="Profile image">
+                  {% endif %}
+                  <p class="mb-1 mt-3 font-weight-semibold">{{ request.session.user_name }}</p>
+                  <p class="font-weight-light text-muted mb-0">{{ request.session.user_email }}</p>
+                </div>
+                  <a class="dropdown-item">
+                        <a href="{% url 'mainApp:alter_user' request.session.user_id %}">
+                            <button type="button" class="btn btn-info btn-fw">Personal</button>
+                        </a>
+                        <i class="dropdown-item-icon ti-comment-alt"></i>
+                    </a>
+                  <a class="dropdown-item">
+                        <a href="{% url 'mainApp:order' 1 %}">
+                            <button type="button" class="btn btn-primary btn-fw">My order</button>
+                        </a>
+                        <i class="dropdown-item-icon ti-comment-alt"></i>
+                    </a>
+                  <a class="dropdown-item">
+                        <a href="{% url 'mainApp:logout' %}">
+                            <button type="button" class="btn btn-danger btn-fw">Sign out</button>
+                        </a>
+                        <i class="dropdown-item-icon ti-power-off" ></i>
+                    </a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav><!-- partial -->
+        <!-- 主体部分 -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <!-- 侧边栏部分 -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <!-- 侧边用户头像  -->
+                    <li class="nav-item nav-profile">
+                      <a href="{% url 'mainApp:alter_user' request.session.user_id %}" class="nav-link">
+                        <div class="profile-image">
+                            {% if request.session.user_gender == 0 %}
+                                <img class="img-xs rounded-circle" src="{% static 'assets/images/faces-clipart/pic-1.png' %}" alt="Profile image">
+                            {% else %}
+                                <img class="img-xs rounded-circle" src="{% static 'assets/images/faces-clipart/pic-2.png' %}" alt="Profile image">
+                            {% endif %}
+                          <div class="dot-indicator bg-success"></div>
+                        </div>
+                        <div class="text-wrapper">
+                            <p class="designation">Welcome !</p>
+                            <p class="profile-name">{{ request.session.user_name }}</p>
+                        </div>
+                      </a>
+                    </li>
+                    <!--侧边栏元素 -->
+		            <li class="nav-item nav-category">Main Menu</li>
+                    <!-- 公告 -->
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'mainApp:ann' %}">
+                        <i class="menu-icon typcn typcn-document-text"></i>
+                        <span class="menu-title">公告列表</span>
+                      </a>
+		            </li>
+                    <!-- 工单
+                    <li class="nav-item">
+                      <a class="nav-link" href="">
+                        <i class="menu-icon typcn typcn-document-text"></i>
+                        <span class="menu-title">工单列表</span>
+                      </a>
+		            </li>
+                    -->
+                    <!--工单状态-->
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <i class="menu-icon typcn typcn-coffee"></i>
+                        <span class="menu-title">工单列表</span>
+                        <i class="menu-arrow"></i>
+                      </a>
+                      <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'mainApp:order' 0 %}">所有工单</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'mainApp:order' 1 %}">我的工单</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'mainApp:order' 2 %}">未完成工单</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'mainApp:order' 3 %}">审核中工单</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{% url 'mainApp:order' 4 %}">已完成工单</a>
+                          </li>
+                        </ul>
+                      </div>
+		            </li>
+                    <!-- 用户 -->
+                    <li class="nav-item">
+                      {% if request.session.user_level == 0 %}
+                          <a class="nav-link" href="{% url 'mainApp:user' %}">
+                            <i class="menu-icon typcn typcn-shopping-bag"></i>
+                            <span class="menu-title">用户列表</span>
+                          </a>
+                      {% else %}
+                          <a class="nav-link" href="{% url 'mainApp:alter_user' request.session.user_id %}">
+                            <i class="menu-icon typcn typcn-shopping-bag"></i>
+                            <span class="menu-title">个人信息</span>
+                          </a>
+                      {% endif %}
+
+                    </li>
+                </ul>
+            </nav>
+            <!-- 主体部分 -->
+            {% block main %}
+
+            {% endblock %}
+        </div>
+
+    </div>
+    <!-- page-body-wrapper ends -->
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script type="text/javascript" src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/vendors/js/vendor.bundle.addons.js' %}"></script>
+    <!--
+    <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="./assets/vendors/js/vendor.bundle.addons.js"></script>
+    -->
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <!-- XDSoft DateTimePicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#id_pub_date").datetimepicker( {
+                format:'Y-m-d H:i',
+            });
+        });
+    </script>
+    <script type="text/javascript" src="{% static 'assets/js/shared/off-canvas.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/shared/misc.js' %}"></script>
+    <!--
+    <script src="./assets/js/shared/off-canvas.js"></script>
+    <script src="./assets/js/shared/misc.js"></script>
+    -->
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <!--
+    <script src="./assets/js/demo_1/dashboard.js"></script>
+    -->
+    <script type="text/javascript" src="{% static 'assets/js/demo_1/dashboard.js' %}"></script>
+    <!-- End custom js for this page-->
+</body>
+</html>

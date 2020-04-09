@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+{% block title %}物业管理系统{% endblock %}
+{% block main %}
+    <div class="main-panel">
+                <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">用户信息</h4>
+                    {% if message %}
+                        <div class="alert alert-warning">{{ message }}</div>
+                    {% endif %}
+                    <a href="{% url 'mainApp:cre_user' %}">
+                        <button type="button" class="btn btn-outline-primary btn-fw">
+                            <i class="mdi mdi-file-document"></i>创建新用户
+                        </button>
+                    </a>
+                    {# {% render_table table %} #}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>用户姓名</th>
+                                <th>性别</th>
+                                <th>电话</th>
+                                <th>email</th>
+                                <th>部门</th>
+                                <th>权限</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for users in users %}
+                            <tr>
+                                <td>{{ users.username }}</td>
+                                <td>
+                                    {% if users.gender == 0 %}
+                                        男
+                                    {% elif users.gender == 1 %}
+                                        女
+                                    {% endif %}
+                                </td>
+                                <td>{{ users.telephone }}</td>
+                                <td>{{ users.email }}</td>
+                                <td>{{ users.department }}</td>
+                                <td>
+                                    {% if users.level == 0 %}
+                                        最高权限
+                                    {% elif users.level == 1 %}
+                                        管理权限
+                                    {% else %}
+                                        基础权限
+                                    {% endif %}
+                                </td>
+                                <td><a href="{% url 'mainApp:alter_user' users.pk %}" class="btn btn-inverse-info btn-rounded btn-fw">修改</a></td>
+                                <td><a type="button" href="{% url 'mainApp:del_user' users.pk %}" class="btn btn-outline-danger btn-rounded btn-fw">删除</a></td>
+                            </tr>
+                        {% empty %}
+                            <p>没有用户</p>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+{% endblock %}
+

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load render_table from django_tables2 %}
+{% block title %}物业管理系统{% endblock %}
+{% block main %}
+    <div class="main-panel">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">工单信息</h4>
+                    {% if message %}
+                        <div class="alert alert-warning">{{ message }}</div>
+                    {% endif %}
+                    {% if request.session.user_level <= 1 %}
+                        <a href="{% url 'mainApp:cre_ord' %}">
+                            <button type="button" class="btn btn-outline-primary btn-fw">
+                                <i class="mdi mdi-file-document"></i>创建工单
+                            </button>
+                        </a>
+                    {% endif %}
+                    {# {% render_table table %} #}
+                    <table class="table">
+                          <thead>
+                            <tr>
+                              <th>工单标题</th>
+                              <th>工作内容</th>
+                              <th>创建者</th>
+                              <th>报事类型</th>
+                              <th>联系电话</th>
+                              <th>服务地点</th>
+                              <th>预定时间</th>
+                              <th>状态</th>
+                              <th>操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for ord in orders %}
+                            <tr>
+                              <td>{{ ord.ord_title }}</td>
+                              <td>{{ ord.ord_text }}</td>
+                              <td>{{ ord.ord_creator }}</td>
+                              <td>
+                                  {% if ord.type == 'repair' %}
+                                      维修
+                                  {% elif ord.type == 'clean' %}
+                                      清洁
+                                  {% else %}
+                                      安保
+                                  {% endif %}
+                              </td>
+                              <td>{{ ord.telephone }}</td>
+                              <td>{{ ord.address }}</td>
+                              <td>{{ ord.order_time }}</td>
+                              {% if ord.status == 0 %}
+                                  <td>未完成</td>
+                                  {% if request.session.user_level <= 1 %}
+                                      <td><a type="button" href="{% url 'mainApp:alter_ord' ord.pk %}" class="btn btn-inverse-info btn-rounded btn-fw">修改</a></td>
+                                      <td><a type="button" href="{% url 'mainApp:del_ord' ord.pk %}" class="btn btn-outline-danger btn-rounded btn-fw">删除</a></td>
+                                  {% else %}
+                                      {% if ord.receiver == request.session.user_name %}
+                                          <td><a type="button" href="{% url 'mainApp:refer_order' ord.pk %}" class="btn btn-inverse-info btn-rounded btn-fw">提交</a></td>
+                                      {% else %}
+                                          <td><a type="button" href="{% url 'mainApp:catch_order' ord.pk %}" class="btn btn-inverse-info btn-rounded btn-fw">接取</a></td>
+                                      {% endif %}
+                                  {% endif %}
+                              {% elif ord.status == 1 %}
+                                  <td>审核中</td>
+                                  {% if request.session.user_level <= 1 %}
+                                      <td><a type="button" href="{% url 'mainApp:pass_ord' ord.pk 0 %}" class="btn btn-inverse-info btn-rounded btn-fw">审核</a></td>
+                                  {% endif %}
+                              {% else %}
+                                  <td>已完成</td>
+                              {% endif %}
+                            </tr>
+                            {% empty %}
+                                <h2>没有工单</h2>
+                            {% endfor %}
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>登录</title>
+    <!-- plugins:css -->
+    <link rel="shortcut icon" href="#" />
+    <link href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/iconfonts/ionicons/css/ionicons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/iconfonts/typicons/src/font/typicons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/css/vendor.bundle.base.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/vendors/css/vendor.bundle.addons.css' %}" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link href="{% static 'assets/css/shared/style.css' %}" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <link href="{% static 'assets/images/favicon.png' %}" rel="shortcut icon" type="text/css">
+  </head>
+  <body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
+                <div class="row w-100">
+                    <div class="col-lg-4 mx-auto">
+                        <div class="auto-form-wrapper">
+                            <form action="login/" method="post">
+                                {% if message %}
+                                    <div class="alert alert-warning">{{ message }}</div>
+                                {% endif %}
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label class="label">Username</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="username" placeholder="用户名" autofocus required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="mdi mdi-check-circle-outline"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" name="password" placeholder="*********" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="mdi mdi-check-circle-outline"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary submit-btn btn-block">Login</button>
+                                </div>
+                                <div class="form-group d-flex justify-content-between"></div>
+                                <div class="form-group"></div>
+                                <div class="text-block text-center my-3"></div>
+                            </form>
+                        </div>
+                        <ul class="auth-footer">
+                            <li>
+                              <a href="#">Conditions</a>
+                            </li>
+                            <li>
+                              <a href="#">Help</a>
+                            </li>
+                            <li>
+                              <a href="#">Terms</a>
+                            </li>
+                        </ul>
+                        <p class="footer-text text-center">copyright © 2018 Bootstrapdash. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        <!-- content-wrapper ends -->
+        </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script type="text/javascript" src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/vendors/js/vendor.bundle.addons.js' %}"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script type="text/javascript" src="{% static 'assets/js/shared/off-canvas.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/shared/misc.js' %}"></script>
+    <!-- endinject -->
+  </body>
+</html>

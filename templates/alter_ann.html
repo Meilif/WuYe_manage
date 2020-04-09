@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}物业管理系统{% endblock %}
+{% block main %}
+    <div class="main-panel">
+        <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" style="font-size: large">修改公告</h4>
+                    <form class="forms-sample" method="post">
+                        {% csrf_token %}
+                        {% if message %}
+                            <div class="alert alert-warning">{{ message }}</div>
+                        {% endif %}
+                    {% for ann in ann %}
+                      <div class="form-group">
+                        <label for="exampleInputName1" class="font-weight-bold">公告标题：</label>
+                        <input type="text" class="form-control" name="title" id="title" value={{ ann.ann_title }}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3" class="font-weight-bold">创建人：</label>
+                        <input type="text" class="form-control" name="creator" id="creator" value={{ ann.ann_creator }}>
+                      </div>
+                      <div class="form-group">
+                        <p>  </p>
+                        <label for="exampleInputCity1" class="font-weight-bold">预定时间：</label>
+                        <input type="date" class="card-description" name="order_time" id="order_time" value={{ ann.effective_time }}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">公告内容：</label>
+                        <textarea type="text" class="form-control" name="ord_text" id="ord_text">{{ ann.ann_text }}
+                        </textarea>
+                      </div>
+                    {% endfor %}
+                      <button type="submit" class="btn btn-success mr-2">修改</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+    </div>
+{% endblock %}
+

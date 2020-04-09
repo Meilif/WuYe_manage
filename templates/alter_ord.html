@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}物业管理系统{% endblock %}
+{% block main %}
+    <div class="main-panel">
+        <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" style="font-size: large">修改工单</h4>
+                    <form class="forms-sample" method="post">
+                        {% csrf_token %}
+                        {% if message %}
+                            <div class="alert alert-warning">{{ message }}</div>
+                        {% endif %}
+                    {% for orders in orders %}
+                      <div class="form-group">
+                        <label for="exampleInputName1" class="font-weight-bold">工单标题：</label>
+                        <input type="text" class="form-control" name="title" id="title" value={{ orders.ord_title }}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3" class="font-weight-bold">创建人：</label>
+                        <input type="text" class="form-control" name="creator" id="creator" value={{ orders.ord_creator }}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">联系电话：</label>
+                        <input type="number" class="form-control" name="telephone" id="telephone" value={{ orders.telephone }}>
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect3" class="font-weight-bold">报事类型：</label>
+                          <input type="text" class="form-control" name="type" id="type"
+                                  {% if orders.type == "repair" %}
+                                    value='维修'
+                                  {% elif orders.type == "clean" %}
+                                    value='清洁'
+                                  {% else %}
+                                    value='安保'
+                                  {% endif %}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">服务地点：</label>
+                        <input type="text" class="form-control" name="address" id="address" value={{ orders.address }}>
+                      </div>
+                      <div class="form-group">
+                        <p>  </p>
+                        <label for="exampleInputCity1" class="font-weight-bold">预定时间：</label>
+                        <input type="date" class="card-description" name="order_time" id="order_time" value={{ orders.order_time }}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">工作内容：</label>
+                        <textarea type="text" class="form-control" name="ord_text" id="ord_text">{{ orders.ord_text }}
+                        </textarea>
+                      </div>
+                    {% endfor %}
+                      <button type="submit" class="btn btn-success mr-2">修改</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+    </div>
+{% endblock %}
+

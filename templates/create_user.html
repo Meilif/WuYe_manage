@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}物业管理系统{% endblock %}
+{% block main %}
+    <div class="main-panel">
+        <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">新建用户</h4>
+                    <form class="forms-sample" method="post" action="/login/cre_user/">
+                      {% csrf_token %}
+                      {% if message %}
+                          <div class="alert alert-warning">{{ message }}</div>
+                      {% endif %}
+                      {{ user_form.as_p }}
+                      <button type="submit" class="btn btn-success mr-2">保存</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+    </div>
+{% endblock %}
+

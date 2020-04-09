@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}物业管理系统{% endblock %}
+{% block main %}
+    <div class="main-panel">
+        <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" style="font-size: large">确认工单</h4>
+                    {% for orders in orders %}
+                      <div class="form-group">
+                        <label for="exampleInputName1" class="font-weight-bold">工单标题：</label>
+                          <p type="text" class="form-control" id="title">{{ orders.ord_title }}</p>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3" class="font-weight-bold">创建人：</label>
+                          <p type="text" class="form-control"  id="creator">{{ orders.ord_creator }}</p>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">联系电话：</label>
+                          <p type="number" class="form-control" id="telephone">{{ orders.telephone }}</p>
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect3" class="font-weight-bold">报事类型：</label>
+                          <p type="text" class="form-control" id="type">
+                                  {% if orders.type == "repair" %}
+                                    维修
+                                  {% elif orders.type == "clean" %}
+                                    清洁
+                                  {% else %}
+                                    安保
+                                  {% endif %}
+                          </p>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">服务地点：</label>
+                          <p type="text" class="form-control" id="address">{{ orders.address }}</p>
+                      </div>
+                      <div class="form-group">
+                        <p>  </p>
+                        <label for="exampleInputCity1" class="font-weight-bold">预定时间：</label>
+                          <p type="date" class="card-description"  id="order_time">{{ orders.order_time }}</p>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">工作内容：</label>
+                        <textarea type="text" class="form-control" name="ord_text" id="ord_text">{{ orders.ord_text }}
+                        </textarea>
+                      </div>
+                    <a href="{% url 'mainApp:pass_ord' orders.pk 1 %}">
+                      <button class="btn btn-success mr-2">通过</button>
+                    </a>
+                    <a href="{% url 'mainApp:pass_ord' orders.pk 2 %}">
+                      <button class="btn btn-success mr-2">打回</button>
+                    </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+    </div>
+{% endblock %}
+

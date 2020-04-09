@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}物业管理系统{% endblock %}
+{% block main %}
+    <div class="main-panel">
+        <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" style="font-size: large">用户信息：</h4>
+                    <form class="forms-sample" method="post">
+                        {% csrf_token %}
+                        {% if message %}
+                            <div class="alert alert-warning">{{ message }}</div>
+                        {% endif %}
+                    {% for users in users %}
+                      <div class="form-group">
+                        <label for="exampleInputName1" class="font-weight-bold">姓名：</label>
+                        <input type="text" class="form-control" name="name" id="exampleInputName1" value={{ users.username }}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3" class="font-weight-bold">电子邮件：</label>
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail3" value={{ users.email }}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">密码：</label>
+                        <input type="password" class="form-control" name="password" id="exampleInputPassword4" placeholder="******">
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect3" class="font-weight-bold">性别：</label>
+                          <input type="text" class="form-control" name="gender" id="exampleInputPassword4"
+                                  {% if users.gender %}
+                                    value='女'
+                                  {% else %}
+                                    value='男'
+                                  {% endif %}>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4" class="font-weight-bold">用户级别：</label>
+                        <p class="card-description">
+                            {% if users.level == 0 %}
+                                   最高权限
+                            {% elif users.level == 1 %}
+                                   管理权限
+                            {% elif users.level == 2 %}
+                                   基础权限
+                            {% endif %}
+                        </p>
+                      </div>
+                      <div class="form-group">
+                        <p>  </p>
+                        <label for="exampleInputCity1" class="font-weight-bold">部门：</label>
+                        <p type="text" class="card-description" id="exampleInputCity1" >{{ users.department }}</p>
+                      </div>
+                    {% endfor %}
+                      <button type="submit" class="btn btn-success mr-2">修改</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+    </div>
+{% endblock %}
+
